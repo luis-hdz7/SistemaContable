@@ -1,0 +1,297 @@
+/**
+ * =============================================================================
+ * resultados.css - Estilos específicos de la página Resultados
+ * =============================================================================
+ * 
+ * Este archivo complementa a principal.css con estilos exclusivos para
+ * la página resultados.html: balanza de comprobación, análisis de la
+ * operación paso a paso, y contenedores de gráficos con Canvas.
+ */
+
+/* =============================================================================
+   BALANZA DE COMPROBACIÓN
+   ============================================================================= */
+
+/* Indicador de estado de la balanza */
+#indicador-balanza {
+    font-size: var(--tamano-pequeno);
+    padding: 6px 16px;
+    border-radius: 20px;
+}
+
+/* Tabla de balanza: anchos de columna */
+#tabla-balanza th:nth-child(1),
+#tabla-balanza td:nth-child(1) {
+    min-width: 180px;
+}
+
+#tabla-balanza th:nth-child(2),
+#tabla-balanza td:nth-child(2),
+#tabla-balanza th:nth-child(3),
+#tabla-balanza td:nth-child(3),
+#tabla-balanza th:nth-child(4),
+#tabla-balanza td:nth-child(4),
+#tabla-balanza th:nth-child(5),
+#tabla-balanza td:nth-child(5) {
+    width: 140px;
+    text-align: right;
+}
+
+/* Fila de totales en el pie de la balanza */
+#pie-tabla-balanza .fila-totales {
+    background-color: var(--color-principal) !important;
+    color: white;
+}
+
+#pie-tabla-balanza .fila-totales td {
+    font-weight: 700;
+    font-size: 16px;
+    padding: 14px var(--espaciado-medio);
+}
+
+/* =============================================================================
+   ANÁLISIS DE LA OPERACIÓN
+   ============================================================================= */
+
+/* Contenedor principal del análisis */
+.contenedor-analisis {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Cada paso del análisis */
+.paso-analisis {
+    padding: 20px 24px;
+    border-radius: var(--radio-borde-medio);
+    border-left: 4px solid var(--color-principal);
+    background-color: #f8f9fa;
+    transition: all 0.2s ease;
+}
+
+.paso-analisis:hover {
+    box-shadow: var(--sombra-suave);
+    transform: translateX(4px);
+}
+
+/* Título de cada paso */
+.titulo-paso {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-principal);
+}
+
+/* Fórmula del paso */
+.formula-paso {
+    margin: 0 0 6px 0;
+    font-size: var(--tamano-pequeno);
+    color: var(--texto-secundario);
+}
+
+/* Cálculo detallado del paso */
+.calculo-paso {
+    margin: 0 0 12px 0;
+    font-size: var(--tamano-texto);
+    color: var(--texto-principal);
+    font-family: 'Courier New', monospace;
+}
+
+/* Contenedor del resultado */
+.resultado-paso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px dashed var(--color-borde);
+}
+
+/* Etiqueta del resultado */
+.etiqueta-resultado {
+    font-size: var(--tamano-pequeno);
+    font-weight: 500;
+    color: var(--texto-secundario);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Valor numérico del resultado */
+.valor-resultado {
+    font-family: 'Courier New', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-principal);
+}
+
+/* Colores específicos por tipo de paso */
+
+/* Paso de ingreso: verde */
+.paso-ingreso {
+    border-left-color: var(--color-haber);
+    background-color: rgba(39, 174, 96, 0.05);
+}
+
+.paso-ingreso .titulo-paso {
+    color: #1e8449;
+}
+
+.paso-ingreso .valor-resultado {
+    color: var(--color-haber);
+}
+
+/* Paso de costo: rojo suave */
+.paso-costo {
+    border-left-color: var(--color-debe);
+    background-color: rgba(192, 57, 43, 0.05);
+}
+
+.paso-costo .titulo-paso {
+    color: #922b21;
+}
+
+.paso-costo .valor-resultado {
+    color: var(--color-debe);
+}
+
+/* Paso de inventario: azul */
+.paso-inventario {
+    border-left-color: var(--color-principal);
+    background-color: rgba(26, 82, 118, 0.05);
+}
+
+/* Paso de ganancia: verde brillante */
+.paso-ganancia {
+    border-left-color: var(--color-exito);
+    background-color: rgba(46, 204, 113, 0.08);
+    border-left-width: 6px;
+}
+
+.paso-ganancia .titulo-paso {
+    color: #1e8449;
+    font-size: 20px;
+}
+
+.paso-ganancia .valor-resultado {
+    color: var(--color-exito);
+    font-size: 26px;
+}
+
+/* Paso de pérdida: rojo */
+.paso-perdida {
+    border-left-color: var(--color-error);
+    background-color: rgba(231, 76, 60, 0.08);
+    border-left-width: 6px;
+}
+
+.paso-perdida .titulo-paso {
+    color: #c0392b;
+    font-size: 20px;
+}
+
+.paso-perdida .valor-resultado {
+    color: var(--color-error);
+    font-size: 26px;
+}
+
+/* =============================================================================
+   GRÁFICOS
+   ============================================================================= */
+
+/* Grid de contenedores de gráficos */
+.grid-graficos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 24px;
+    margin-top: 16px;
+}
+
+/* Contenedor individual de cada gráfico */
+.contenedor-grafico {
+    background-color: #f8f9fa;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-borde-medio);
+    padding: 20px;
+    text-align: center;
+    transition: box-shadow 0.2s ease;
+}
+
+.contenedor-grafico:hover {
+    box-shadow: var(--sombra-suave);
+}
+
+/* Título de cada gráfico */
+.titulo-grafico {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-principal);
+}
+
+/* Elemento canvas del gráfico */
+.canvas-grafico {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: var(--radio-borde-pequeno);
+    background-color: white;
+}
+
+/* Descripción debajo del gráfico */
+.descripcion-grafico {
+    margin: 12px 0 0 0;
+    font-size: var(--tamano-pequeno);
+    color: var(--texto-secundario);
+    font-style: italic;
+}
+
+/* =============================================================================
+   RESPONSIVE - PANTALLAS PEQUEÑAS
+   ============================================================================= */
+
+@media screen and (max-width: 768px) {
+    
+    /* Balanza: tabla compacta */
+    #tabla-balanza {
+        font-size: var(--tamano-pequeno);
+    }
+    
+    #tabla-balanza th,
+    #tabla-balanza td {
+        padding: 8px;
+    }
+    
+    /* Análisis: padding reducido */
+    .paso-analisis {
+        padding: 16px;
+    }
+    
+    .titulo-paso {
+        font-size: 16px;
+    }
+    
+    .calculo-paso {
+        font-size: var(--tamano-pequeno);
+    }
+    
+    .valor-resultado {
+        font-size: 18px;
+    }
+    
+    .paso-ganancia .valor-resultado,
+    .paso-perdida .valor-resultado {
+        font-size: 22px;
+    }
+    
+    /* Gráficos: una sola columna */
+    .grid-graficos {
+        grid-template-columns: 1fr;
+    }
+    
+    .contenedor-grafico {
+        padding: 16px;
+    }
+    
+    .canvas-grafico {
+        max-width: 100%;
+    }
+}

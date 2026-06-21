@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados - Sistema Contable Educativo</title>
+    
+    <!-- 
+        Estilos base compartidos por todas las páginas.
+        Contiene la navegación, variables CSS, botones, tablas y formularios.
+    -->
+    <link rel="stylesheet" href="../estilos/principal.css">
+    
+    <!-- 
+        Estilos específicos de la página de resultados.
+        Incluye estilos para la balanza, análisis y contenedores de gráficos.
+    -->
+    <link rel="stylesheet" href="../estilos/resultados.css">
+    
+    <!-- 
+        Estilos para impresión.
+        Oculta navegación, botones y fondos de color al imprimir.
+    -->
+    <link rel="stylesheet" href="../estilos/impresion.css" media="print">
+</head>
+<body>
+    
+    <!-- 
+        =============================================================================
+        NAVEGACIÓN PRINCIPAL
+        =============================================================================
+        Igual en todas las páginas. El enlace activo se resalta automáticamente
+        mediante la función marcarNavegacionActiva() en principal.js.
+    -->
+    <nav class="navegacion-principal">
+        <div class="contenedor-navegacion">
+            <a href="../index.html" class="titulo-navegacion">Contabilidad Educativa</a>
+            
+            <button id="boton-menu-hamburguesa" class="boton-menu-hamburguesa" aria-label="Abrir menú de navegación">
+                <span class="linea"></span>
+                <span class="linea"></span>
+                <span class="linea"></span>
+            </button>
+            
+            <ul id="lista-navegacion" class="lista-navegacion">
+                <li class="elemento-navegacion">
+                    <a href="../index.html" class="enlace-navegacion">Inicio</a>
+                </li>
+                <li class="elemento-navegacion">
+                    <a href="cuentas.html" class="enlace-navegacion">Catálogo de Cuentas</a>
+                </li>
+                <li class="elemento-navegacion">
+                    <a href="movimientos.html" class="enlace-navegacion">Registro de Movimientos</a>
+                </li>
+                <li class="elemento-navegacion">
+                    <a href="libros.html" class="enlace-navegacion">Libro Diario y Mayor</a>
+                </li>
+                <li class="elemento-navegacion">
+                    <a href="resultados.html" class="enlace-navegacion">Resultados</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- 
+        =============================================================================
+        CONTENIDO PRINCIPAL
+        =============================================================================
+    -->
+    <main class="contenido-principal">
+        <div class="contenedor">
+            
+            <!-- Encabezado de la página -->
+            <header class="encabezado-pagina">
+                <h1 class="titulo-principal">Resultados</h1>
+                <p class="subtitulo-principal">Balanza de comprobación, análisis de la operación y gráficos</p>
+            </header>
+            
+            <!-- 
+                =============================================================================
+                SECCIÓN 1: BALANZA DE COMPROBACIÓN
+                =============================================================================
+                La balanza de comprobación es un documento que lista todas las cuentas
+                con sus movimientos totales (Debe y Haber) y sus saldos finales.
+                
+                Si la contabilidad está correcta, la suma de los saldos deudores debe
+                ser igual a la suma de los saldos acreedores.
+            -->
+            <section class="tarjeta margen-inferior">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+                    <h2 class="titulo-tarjeta" style="margin: 0; border: none; padding: 0;">Balanza de Comprobación</h2>
+                    
+                    <div id="indicador-balanza" class="indicador-estado">
+                        <!-- Se actualiza con JavaScript -->
+                    </div>
+                </div>
+                
+                <p style="color: var(--texto-secundario); font-size: var(--tamano-pequeno); margin-bottom: 16px;">
+                    La balanza de comprobación verifica que la suma de los saldos deudores
+                    sea igual a la suma de los saldos acreedores, confirmando que los registros contables están equilibrados.
+                </p>
+                
+                <!-- Contenedor con scroll horizontal para la tabla -->
+                <div class="contenedor-tabla">
+                    <table class="tabla-datos" id="tabla-balanza">
+                        <thead>
+                            <tr>
+                                <th>Cuenta</th>
+                                <th>Movimientos Deudor</th>
+                                <th>Movimientos Acreedor</th>
+                                <th>Saldo Deudor</th>
+                                <th>Saldo Acreedor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpo-tabla-balanza">
+                            <!-- Las filas se generan dinámicamente con JavaScript -->
+                        </tbody>
+                        <tfoot id="pie-tabla-balanza">
+                            <!-- Los totales se calculan con JavaScript -->
+                        </tfoot>
+                    </table>
+                </div>
+                
+                <p id="mensaje-sin-datos-balanza" class="mensaje-vacio oculto">
+                    No hay datos suficientes para generar la balanza. Registra asientos contables primero.
+                </p>
+            </section>
+            
+            <!-- 
+                =============================================================================
+                SECCIÓN 2: ANÁLISIS DE LA OPERACIÓN
+                =============================================================================
+                El análisis de la operación calcula paso a paso:
+                - Ventas Netas = Ventas - Devoluciones sobre ventas - Descuentos sobre ventas
+                - Compras Totales = Compras + Gastos de compra
+                - Compras Netas = Compras Totales - Devoluciones sobre compras - Descuentos sobre compras
+                - Suma Total de Mercancía = Inventario Inicial + Compras Netas
+                - Costo de lo Vendido = Suma Total de Mercancía - Inventario Final
+                - Utilidad Bruta = Ventas Netas - Costo de lo Vendido
+            -->
+            <section class="tarjeta margen-inferior">
+                <h2 class="titulo-tarjeta">Análisis de la Operación</h2>
+                
+                <p style="color: var(--texto-secundario); font-size: var(--tamano-pequeno); margin-bottom: 20px;">
+                    Cálculo paso a paso del resultado de la operación comercial del período.
+                    Los valores se calculan automáticamente a partir de los asientos registrados.
+                </p>
+                
+                <!-- Contenedor del análisis paso a paso -->
+                <div id="contenedor-analisis" class="contenedor-analisis">
+                    <!-- Los pasos se generan dinámicamente con JavaScript -->
+                </div>
+                
+                <p id="mensaje-sin-datos-analisis" class="mensaje-vacio oculto">
+                    No hay datos suficientes para realizar el análisis. Registra asientos contables primero.
+                </p>
+            </section>
+            
+            <!-- 
+                =============================================================================
+                SECCIÓN 3: GRÁFICOS (CANVAS API)
+                =============================================================================
+                Cuatro gráficos simples dibujados con Canvas API (sin librerías externas):
+                1. Gráfico de barras: Comparación entre total Debe y total Haber por cuenta
+                2. Gráfico de pastel: Distribución de saldos por tipo de cuenta
+                3. Gráfico de barras horizontal: Análisis de la operación
+                4. Gráfico de líneas: Evolución del saldo de Caja
+            -->
+            <section class="tarjeta margen-inferior">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+                    <h2 class="titulo-tarjeta" style="margin: 0; border: none; padding: 0;">Gráficos</h2>
+                    <button id="boton-imprimir" class="boton boton-imprimir boton-pequeno">
+                        Imprimir
+                    </button>
+                </div>
+                
+                <p style="color: var(--texto-secundario); font-size: var(--tamano-pequeno); margin-bottom: 20px;">
+                    Visualización gráfica de los datos contables usando Canvas API.
+                    Cada gráfico se dibuja con código JavaScript puro, sin librerías externas.
+                </p>
+                
+                <!-- Grid de gráficos -->
+                <div class="grid-graficos">
+                    
+                    <!-- Gráfico 1: Comparación Debe vs Haber -->
+                    <div class="contenedor-grafico">
+                        <h3 class="titulo-grafico">Movimientos por Cuenta (Debe vs Haber)</h3>
+                        <canvas id="canvas-barras-debe-haber" class="canvas-grafico" width="500" height="300"></canvas>
+                        <p class="descripcion-grafico">Comparación entre el total de movimientos al Debe y al Haber de cada cuenta.</p>
+                    </div>
+                    
+                    <!-- Gráfico 2: Distribución por tipo de cuenta -->
+                    <div class="contenedor-grafico">
+                        <h3 class="titulo-grafico">Distribución de Saldos por Tipo de Cuenta</h3>
+                        <canvas id="canvas-pastel-tipos" class="canvas-grafico" width="500" height="300"></canvas>
+                        <p class="descripcion-grafico">Proporción de los saldos finales agrupados por tipo de cuenta.</p>
+                    </div>
+                    
+                    <!-- Gráfico 3: Análisis de la operación -->
+                    <div class="contenedor-grafico">
+                        <h3 class="titulo-grafico">Análisis de la Operación</h3>
+                        <canvas id="canvas-barras-analisis" class="canvas-grafico" width="500" height="300"></canvas>
+                        <p class="descripcion-grafico">Ventas Netas, Costo de lo Vendido y Utilidad Bruta.</p>
+                    </div>
+                    
+                    <!-- Gráfico 4: Evolución del saldo de Caja -->
+                    <div class="contenedor-grafico">
+                        <h3 class="titulo-grafico">Evolución del Saldo de Caja</h3>
+                        <canvas id="canvas-lineas-caja" class="canvas-grafico" width="500" height="300"></canvas>
+                        <p class="descripcion-grafico">Variación del saldo de la cuenta Caja a través de los asientos contables.</p>
+                    </div>
+                    
+                </div>
+                
+                <p id="mensaje-sin-datos-graficos" class="mensaje-vacio oculto">
+                    No hay datos suficientes para generar los gráficos. Registra asientos contables primero.
+                </p>
+            </section>
+            
+        </div>
+    </main>
+    
+    <!-- 
+        =============================================================================
+        PIE DE PÁGINA
+        =============================================================================
+    -->
+    <footer class="pie-pagina">
+        <p class="texto-pie">
+            Sistema Contable Educativo - Método Pormenorizado | 
+            Creado para fines didácticos | 
+            <span id="anio-actual">2024</span>
+        </p>
+    </footer>
+    
+    <!-- 
+        =============================================================================
+        SCRIPTS
+        =============================================================================
+        Orden de carga importante:
+        1. datos.js - Variables globales con los datos del ejercicio
+        2. principal.js - Funciones compartidas (formato, navegación, impresión)
+        3. graficos.js - Funciones para dibujar gráficos con Canvas API
+        4. resultados.js - Lógica específica de esta página
+    -->
+    <script src="../scripts/datos.js"></script>
+    <script src="../scripts/principal.js"></script>
+    <script src="../scripts/graficos.js"></script>
+    <script src="../scripts/resultados.js"></script>
+    
+    <!-- Script para el año actual -->
+    <script>
+        document.getElementById('anio-actual').textContent = new Date().getFullYear();
+    </script>
+    
+</body>
+</html>

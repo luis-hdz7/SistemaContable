@@ -1,0 +1,647 @@
+/**
+ * =============================================================================
+ * principal.css - Estilos generales del Sistema Contable Educativo
+ * =============================================================================
+ * 
+ * Este archivo contiene los estilos base que se aplican a todas las páginas:
+ * variables CSS, reset básico, tipografía, navegación, layout general,
+ * botones, tablas, formularios y estilos responsive.
+ * 
+ * Cada página tiene su propio CSS específico que se carga después de este.
+ */
+
+/* =============================================================================
+   VARIABLES CSS (Custom Properties)
+   =============================================================================
+   Las variables CSS nos permiten definir colores y valores reutilizables.
+   Si queremos cambiar un color, solo lo modificamos aquí y se aplica en todo.
+   ============================================================================= */
+
+:root {
+    /* Paleta de colores principal */
+    --color-principal: #1a5276;        /* Azul corporativo - encabezados, navegación */
+    --color-principal-oscuro: #154360;  /* Azul más oscuro para hover */
+    --color-secundario: #2ecc71;       /* Verde - éxito, valores positivos */
+    --color-acento: #e67e22;           /* Naranja - botones de acción, resaltados */
+    
+    /* Colores de fondo */
+    --fondo-pagina: #f5f6fa;           /* Gris muy claro - fondo general */
+    --fondo-tarjeta: #ffffff;          /* Blanco - tarjetas y contenedores */
+    --fondo-encabezado-tabla: #1a5276; /* Azul corporativo - cabeceras de tabla */
+    
+    /* Colores de texto */
+    --texto-principal: #2c3e50;        /* Gris oscuro - texto principal */
+    --texto-secundario: #7f8c8d;       /* Gris medio - subtítulos, descripciones */
+    --texto-claro: #ffffff;            /* Blanco - texto sobre fondos oscuros */
+    
+    /* Colores contables específicos */
+    --color-debe: #c0392b;             /* Rojo suave - movimientos al Debe */
+    --color-haber: #27ae60;            /* Verde - movimientos al Haber */
+    --color-exito: #2ecc71;            /* Verde brillante - mensajes de éxito */
+    --color-error: #e74c3c;            /* Rojo - mensajes de error, alertas */
+    
+    /* Colores de borde y separación */
+    --color-borde: #dcdde1;            /* Gris claro - bordes de inputs y tablas */
+    --color-borde-hover: #1a5276;      /* Azul - borde al enfocar input */
+    
+    /* Tipografía */
+    --fuente-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Tamaños de texto */
+    --tamano-titulo: 28px;
+    --tamano-subtitulo: 20px;
+    --tamano-texto: 15px;
+    --tamano-pequeno: 13px;
+    
+    /* Espaciado */
+    --espaciado-pequeno: 8px;
+    --espaciado-medio: 16px;
+    --espaciado-grande: 24px;
+    --espaciado-extra: 32px;
+    
+    /* Bordes redondeados */
+    --radio-borde-pequeno: 4px;
+    --radio-borde-medio: 6px;
+    --radio-borde-grande: 8px;
+    
+    /* Sombras */
+    --sombra-suave: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --sombra-media: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* =============================================================================
+   RESET Y ESTILOS BASE
+   =============================================================================
+   Estos estilos normalizan el comportamiento entre navegadores y establecen
+   la base visual del sitio.
+   ============================================================================= */
+
+/* Aplicamos box-sizing border-box a todos los elementos para que el padding
+   y el borde no aumenten el ancho total del elemento */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos base del body */
+body {
+    font-family: var(--fuente-principal);
+    font-size: var(--tamano-texto);
+    color: var(--texto-principal);
+    background-color: var(--fondo-pagina);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =============================================================================
+   NAVEGACIÓN PRINCIPAL
+   =============================================================================
+   Barra de navegación fija en la parte superior con fondo azul corporativo.
+   ============================================================================= */
+
+.navegacion-principal {
+    background-color: var(--color-principal);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: var(--sombra-suave);
+}
+
+/* Contenedor interno de la navegación */
+.contenedor-navegacion {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--espaciado-medio);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+/* Logo o título del sitio en la navegación */
+.titulo-navegacion {
+    color: var(--texto-claro);
+    font-size: var(--tamano-subtitulo);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Lista de enlaces de navegación */
+.lista-navegacion {
+    list-style: none;
+    display: flex;
+    gap: var(--espaciado-pequeno);
+}
+
+/* Cada elemento de la lista */
+.elemento-navegacion {
+    display: inline-block;
+}
+
+/* Enlaces de navegación */
+.enlace-navegacion {
+    color: var(--texto-claro);
+    text-decoration: none;
+    padding: var(--espaciado-pequeno) var(--espaciado-medio);
+    border-radius: var(--radio-borde-pequeno);
+    transition: background-color 0.2s ease;
+    font-size: var(--tamano-pequeno);
+    font-weight: 500;
+}
+
+/* Efecto hover: fondo más oscuro */
+.enlace-navegacion:hover {
+    background-color: var(--color-principal-oscuro);
+}
+
+/* Enlace activo (página actual) */
+.enlace-navegacion.activo {
+    background-color: var(--color-principal-oscuro);
+    font-weight: 600;
+}
+
+/* =============================================================================
+   BOTÓN MENÚ HAMBURGUESA (solo visible en pantallas pequeñas)
+   ============================================================================= */
+
+.boton-menu-hamburguesa {
+    display: none; /* Oculto por defecto en escritorio */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--espaciado-pequeno);
+}
+
+/* Las tres líneas del menú hamburguesa */
+.boton-menu-hamburguesa .linea {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--texto-claro);
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* =============================================================================
+   CONTENIDO PRINCIPAL
+   =============================================================================
+   El main tiene margen superior para no quedar debajo de la navegación fija.
+   ============================================================================= */
+
+.contenido-principal {
+    margin-top: 60px; /* Altura de la navegación */
+    flex: 1;
+    padding: var(--espaciado-grande) var(--espaciado-medio);
+}
+
+/* Contenedor centrado con ancho máximo */
+.contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* =============================================================================
+   ENCABEZADOS DE PÁGINA
+   ============================================================================= */
+
+.encabezado-pagina {
+    text-align: center;
+    margin-bottom: var(--espaciado-extra);
+    padding: var(--espaciado-grande) 0;
+}
+
+.titulo-principal {
+    font-size: var(--tamano-titulo);
+    font-weight: 600;
+    color: var(--color-principal);
+    margin-bottom: var(--espaciado-pequeno);
+}
+
+.subtitulo-principal {
+    font-size: var(--tamano-subtitulo);
+    color: var(--texto-secundario);
+    font-weight: 400;
+}
+
+/* =============================================================================
+   TARJETAS Y CONTENEDORES
+   =============================================================================
+   Las tarjetas son cajas blancas con sombra que agrupan contenido relacionado.
+   ============================================================================= */
+
+.tarjeta {
+    background-color: var(--fondo-tarjeta);
+    border-radius: var(--radio-borde-medio);
+    box-shadow: var(--sombra-suave);
+    padding: var(--espaciado-grande);
+    margin-bottom: var(--espaciado-grande);
+}
+
+.titulo-tarjeta {
+    font-size: var(--tamano-subtitulo);
+    font-weight: 600;
+    color: var(--color-principal);
+    margin-bottom: var(--espaciado-medio);
+    padding-bottom: var(--espaciado-pequeno);
+    border-bottom: 2px solid var(--color-borde);
+}
+
+/* =============================================================================
+   BOTONES
+   =============================================================================
+   Estilos base para todos los botones. Se pueden combinar con clases modificadoras.
+   ============================================================================= */
+
+.boton {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--radio-borde-pequeno);
+    font-family: var(--fuente-principal);
+    font-size: var(--tamano-texto);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    text-align: center;
+}
+
+/* Botón primario: azul corporativo */
+.boton-primario {
+    background-color: var(--color-principal);
+    color: var(--texto-claro);
+}
+
+.boton-primario:hover {
+    background-color: var(--color-principal-oscuro);
+}
+
+/* Botón secundario: verde */
+.boton-secundario {
+    background-color: var(--color-secundario);
+    color: var(--texto-claro);
+}
+
+.boton-secundario:hover {
+    background-color: #27ae60;
+}
+
+/* Botón de acento: naranja */
+.boton-acento {
+    background-color: var(--color-acento);
+    color: var(--texto-claro);
+}
+
+.boton-acento:hover {
+    background-color: #d35400;
+}
+
+/* Botón de peligro: rojo */
+.boton-peligro {
+    background-color: var(--color-error);
+    color: var(--texto-claro);
+}
+
+.boton-peligro:hover {
+    background-color: #c0392b;
+}
+
+/* Botón de impresión */
+.boton-imprimir {
+    background-color: var(--texto-secundario);
+    color: var(--texto-claro);
+}
+
+.boton-imprimir:hover {
+    background-color: #5d6d7e;
+}
+
+/* Botón pequeño (para acciones en tablas) */
+.boton-pequeno {
+    padding: 6px 12px;
+    font-size: var(--tamano-pequeno);
+}
+
+/* Grupo de botones alineados */
+.grupo-botones {
+    display: flex;
+    gap: var(--espaciado-pequeno);
+    margin-bottom: var(--espaciado-medio);
+    flex-wrap: wrap;
+}
+
+/* =============================================================================
+   TABLAS
+   =============================================================================
+   Estilos para tablas de datos con cabecera azul y filas alternadas.
+   ============================================================================= */
+
+.contenedor-tabla {
+    overflow-x: auto; /* Permite scroll horizontal en tablas anchas */
+    margin-bottom: var(--espaciado-grande);
+}
+
+.tabla-datos {
+    width: 100%;
+    border-collapse: collapse; /* Une los bordes de las celdas */
+    font-size: var(--tamano-texto);
+    background-color: var(--fondo-tarjeta);
+}
+
+/* Cabecera de la tabla */
+.tabla-datos thead {
+    background-color: var(--color-principal);
+    color: var(--texto-claro);
+}
+
+.tabla-datos th {
+    padding: 12px var(--espaciado-medio);
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Celdas del cuerpo de la tabla */
+.tabla-datos td {
+    padding: 10px var(--espaciado-medio);
+    border-bottom: 1px solid var(--color-borde);
+}
+
+/* Filas alternadas para mejor lectura */
+.tabla-datos tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* Efecto hover en las filas */
+.tabla-datos tbody tr:hover {
+    background-color: #e8f4f8;
+}
+
+/* Alineación derecha para montos numéricos */
+.tabla-datos .celda-numero {
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+}
+
+/* Celda de acciones (botones editar/eliminar) */
+.celda-acciones {
+    display: flex;
+    gap: var(--espaciado-pequeno);
+    white-space: nowrap;
+}
+
+/* =============================================================================
+   FORMULARIOS
+   =============================================================================
+   Estilos para inputs, selects, textareas y labels.
+   ============================================================================= */
+
+.grupo-formulario {
+    margin-bottom: var(--espaciado-medio);
+}
+
+.etiqueta-formulario {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--texto-principal);
+    font-size: var(--tamano-pequeno);
+}
+
+.campo-texto,
+.campo-seleccion,
+.campo-textarea,
+.campo-numero,
+.campo-fecha {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-borde-pequeno);
+    font-family: var(--fuente-principal);
+    font-size: var(--tamano-texto);
+    color: var(--texto-principal);
+    background-color: var(--fondo-tarjeta);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto al enfocar un campo */
+.campo-texto:focus,
+.campo-seleccion:focus,
+.campo-textarea:focus,
+.campo-numero:focus,
+.campo-fecha:focus {
+    outline: none;
+    border-color: var(--color-borde-hover);
+    box-shadow: 0 0 0 3px rgba(26, 82, 118, 0.1);
+}
+
+.campo-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Grupo de radio buttons */
+.grupo-radio {
+    display: flex;
+    gap: var(--espaciado-grande);
+    margin-top: var(--espaciado-pequeno);
+}
+
+.opcion-radio {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.opcion-radio input[type="radio"] {
+    cursor: pointer;
+}
+
+/* Mensaje de validación */
+.mensaje-validacion {
+    padding: var(--espaciado-pequeno) var(--espaciado-medio);
+    border-radius: var(--radio-borde-pequeno);
+    margin-top: var(--espaciado-pequeno);
+    font-size: var(--tamano-pequeno);
+    font-weight: 500;
+}
+
+.mensaje-validacion.exito {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: var(--color-exito);
+    border: 1px solid var(--color-exito);
+}
+
+.mensaje-validacion.error {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+}
+
+/* =============================================================================
+   MENSAJES Y ALERTAS
+   ============================================================================= */
+
+.mensaje-vacio {
+    text-align: center;
+    padding: var(--espaciado-grande);
+    color: var(--texto-secundario);
+    font-style: italic;
+}
+
+.indicador-estado {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: var(--radio-borde-pequeno);
+    font-size: var(--tamano-pequeno);
+    font-weight: 600;
+}
+
+.indicador-estado.cuadra {
+    background-color: rgba(46, 204, 113, 0.15);
+    color: var(--color-exito);
+}
+
+.indicador-estado.no-cuadra {
+    background-color: rgba(231, 76, 60, 0.15);
+    color: var(--color-error);
+}
+
+/* =============================================================================
+   PIE DE PÁGINA
+   ============================================================================= */
+
+.pie-pagina {
+    background-color: var(--color-principal);
+    color: var(--texto-claro);
+    text-align: center;
+    padding: var(--espaciado-medio);
+    margin-top: auto; /* Empuja el footer al final de la página */
+}
+
+.texto-pie {
+    font-size: var(--tamano-pequeno);
+    opacity: 0.9;
+}
+
+/* =============================================================================
+   UTILIDADES
+   ============================================================================= */
+
+.texto-centrado {
+    text-align: center;
+}
+
+.texto-derecha {
+    text-align: right;
+}
+
+.margen-superior {
+    margin-top: var(--espaciado-grande);
+}
+
+.margen-inferior {
+    margin-bottom: var(--espaciado-grande);
+}
+
+.oculto {
+    display: none !important;
+}
+
+/* Color para valores al Debe */
+.texto-debe {
+    color: var(--color-debe);
+    font-weight: 600;
+}
+
+/* Color para valores al Haber */
+.texto-haber {
+    color: var(--color-haber);
+    font-weight: 600;
+}
+
+/* =============================================================================
+   RESPONSIVE - PANTALLAS PEQUEÑAS (menos de 768px)
+   =============================================================================
+   Cuando la pantalla es estrecha, adaptamos el layout para móviles.
+   ============================================================================= */
+
+@media screen and (max-width: 768px) {
+    
+    /* Navegación: ocultamos la lista y mostramos el botón hamburguesa */
+    .lista-navegacion {
+        display: none; /* Oculto por defecto */
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-principal);
+        flex-direction: column;
+        padding: var(--espaciado-pequeno) 0;
+        box-shadow: var(--sombra-media);
+    }
+    
+    /* Clase que se agrega con JavaScript para mostrar el menú */
+    .lista-navegacion.visible {
+        display: flex;
+    }
+    
+    .elemento-navegacion {
+        width: 100%;
+    }
+    
+    .enlace-navegacion {
+        display: block;
+        padding: var(--espaciado-medio);
+        border-radius: 0;
+    }
+    
+    .boton-menu-hamburguesa {
+        display: block; /* Visible solo en móvil */
+    }
+    
+    /* Ajustamos tamaños de texto */
+    .titulo-principal {
+        font-size: 22px;
+    }
+    
+    .subtitulo-principal {
+        font-size: 16px;
+    }
+    
+    /* Tarjetas con menos padding */
+    .tarjeta {
+        padding: var(--espaciado-medio);
+    }
+    
+    /* Tablas con scroll horizontal */
+    .contenedor-tabla {
+        border: 1px solid var(--color-borde);
+        border-radius: var(--radio-borde-pequeno);
+    }
+    
+    /* Grupos de botones en columna */
+    .grupo-botones {
+        flex-direction: column;
+    }
+    
+    .boton {
+        width: 100%;
+    }
+    
+    /* Formularios: inputs al 100% */
+    .grupo-radio {
+        flex-direction: column;
+        gap: var(--espaciado-pequeno);
+    }
+}

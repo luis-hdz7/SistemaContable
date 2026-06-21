@@ -1,0 +1,410 @@
+/**
+ * =============================================================================
+ * impresion.css - Estilos para impresión
+ * =============================================================================
+ * 
+ * Este archivo define cómo se ve el sitio cuando se imprime o se genera
+ * un PDF mediante la función window.print(). Se carga con media="print"
+ * en cada página, por lo que solo aplica cuando el navegador está en
+ * modo de impresión.
+ * 
+ * Reglas generales:
+ * - Ocultar elementos interactivos (navegación, botones)
+ * - Eliminar fondos de color para ahorrar tinta
+ * - Usar bordes negros en lugar de colores
+ * - Asegurar que el contenido principal ocupe todo el ancho
+ * - Mostrar URLs de enlaces si es relevante
+ */
+
+@media print {
+    
+    /* =============================================================================
+       OCULTAR ELEMENTOS INTERACTIVOS
+       =============================================================================
+       La navegación, botones y elementos de control no son necesarios
+       en una impresión. El usuario solo quiere ver el contenido.
+       ============================================================================= */
+    
+    /* Ocultar la barra de navegación completa */
+    .navegacion-principal {
+        display: none !important;
+    }
+    
+    /* Ocultar todos los botones del sitio */
+    .boton,
+    .boton-primario,
+    .boton-secundario,
+    .boton-acento,
+    .boton-peligro,
+    .boton-imprimir,
+    .boton-pequeno,
+    .boton-editar,
+    .boton-eliminar,
+    .boton-eliminar-linea,
+    .boton-agregar-linea,
+    .boton-menu-hamburguesa {
+        display: none !important;
+    }
+    
+    /* Ocultar el botón de impresión específicamente (por si acaso) */
+    #boton-imprimir,
+    #boton-imprimir-diario,
+    #boton-imprimir-mayor {
+        display: none !important;
+    }
+    
+    /* Ocultar botones de acción en tablas */
+    .celda-acciones,
+    .grupo-botones,
+    .grupo-boton-eliminar {
+        display: none !important;
+    }
+    
+    /* Ocultar botones de restablecer */
+    #boton-restablecer,
+    #boton-limpiar {
+        display: none !important;
+    }
+    
+    /* Ocultar botón cancelar edición */
+    #boton-cancelar {
+        display: none !important;
+    }
+    
+    /* Ocultar botón agregar línea en movimientos */
+    #boton-agregar-linea {
+        display: none !important;
+    }
+    
+    /* Ocultar botón registrar asiento (deshabilitado o no) */
+    #boton-registrar {
+        display: none !important;
+    }
+    
+    /* Ocultar botones de eliminar en tablas */
+    .boton-eliminar,
+    .boton-editar {
+        display: none !important;
+    }
+    
+    /* Ocultar mensajes de validación y ayuda */
+    .mensaje-validacion,
+    .texto-ayuda,
+    #mensaje-formulario,
+    #mensaje-partida-doble {
+        display: none !important;
+    }
+    
+    /* Ocultar el selector de cuentas en el mayor */
+    #selector-cuenta-mayor {
+        display: none !important;
+    }
+    
+    /* Ocultar pestañas de navegación (mostrar todo el contenido) */
+    .contenedor-pestanas {
+        display: none !important;
+    }
+    
+    /* =============================================================================
+       MOSTRAR TODO EL CONTENIDO (pestañas ocultas)
+       =============================================================================
+       En modo normal, las pestañas ocultan una sección u otra.
+       Al imprimir, mostramos ambas secciones completas.
+       ============================================================================= */
+    
+    /* Mostrar todas las secciones que estén ocultas */
+    .seccion-pestana.oculto {
+        display: block !important;
+    }
+    
+    /* Asegurar que el contenido principal no tenga margen superior
+       (ya que la navegación ya no está visible) */
+    .contenido-principal {
+        margin-top: 0 !important;
+        padding-top: 20px !important;
+    }
+    
+    /* =============================================================================
+       ESTILOS DE FONDO Y COLOR
+       =============================================================================
+       Los fondos de color consumen mucha tinta. Los eliminamos y
+       usamos solo bordes y texto negro para máxima legibilidad.
+       ============================================================================= */
+    
+    /* Fondo blanco para todo el documento */
+    body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        font-size: 12pt !important;
+    }
+    
+    /* Eliminar sombras de tarjetas */
+    .tarjeta {
+        box-shadow: none !important;
+        border: 1px solid #000000 !important;
+        background-color: #ffffff !important;
+        margin-bottom: 20px !important;
+        page-break-inside: avoid !important;
+    }
+    
+    /* Títulos en negro */
+    .titulo-principal,
+    .titulo-tarjeta,
+    .titulo-cuenta-mayor,
+    .titulo-paso,
+    .titulo-grafico {
+        color: #000000 !important;
+    }
+    
+    /* Subtítulos en gris oscuro */
+    .subtitulo-principal,
+    .descripcion-grafico,
+    .formula-paso,
+    .texto-ayuda {
+        color: #333333 !important;
+    }
+    
+    /* =============================================================================
+       TABLAS
+       =============================================================================
+       Las tablas deben verse claras con bordes definidos y sin
+       colores de fondo alternados que consuman tinta.
+       ============================================================================= */
+    
+    /* Tablas con bordes negros sólidos */
+    .tabla-datos {
+        border: 2px solid #000000 !important;
+        font-size: 10pt !important;
+    }
+    
+    /* Cabecera de tabla: fondo gris claro en lugar de azul */
+    .tabla-datos thead {
+        background-color: #e0e0e0 !important;
+        color: #000000 !important;
+    }
+    
+    .tabla-datos th {
+        border: 1px solid #000000 !important;
+        padding: 8px !important;
+        font-weight: bold !important;
+    }
+    
+    /* Celdas del cuerpo */
+    .tabla-datos td {
+        border: 1px solid #000000 !important;
+        padding: 6px 8px !important;
+    }
+    
+    /* Eliminar filas alternadas */
+    .tabla-datos tbody tr:nth-child(even) {
+        background-color: transparent !important;
+    }
+    
+    /* Eliminar hover en filas */
+    .tabla-datos tbody tr:hover {
+        background-color: transparent !important;
+    }
+    
+    /* Totales en negrita con borde superior doble */
+    .fila-totales td,
+    #pie-tabla-balanza td,
+    #pie-tabla-diario td {
+        border-top: 2px solid #000000 !important;
+        font-weight: bold !important;
+        background-color: #f0f0f0 !important;
+    }
+    
+    /* =============================================================================
+       ESQUEMAS DE MAYOR (FORMATO T)
+       =============================================================================
+       Los esquemas T deben mantener su estructura pero sin colores.
+       ============================================================================= */
+    
+    .esquema-mayor {
+        border: 2px solid #000000 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .encabezado-mayor {
+        background-color: #e0e0e0 !important;
+        color: #000000 !important;
+        border-bottom: 2px solid #000000 !important;
+    }
+    
+    .titulo-cuenta-mayor {
+        color: #000000 !important;
+    }
+    
+    .naturaleza-cuenta-mayor {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        border: 1px solid #000000 !important;
+    }
+    
+    .columna-debe {
+        border-right: 2px solid #000000 !important;
+    }
+    
+    .titulo-columna-mayor {
+        background-color: #f0f0f0 !important;
+        color: #000000 !important;
+        border-bottom: 1px solid #000000 !important;
+    }
+    
+    .total-columna-mayor {
+        background-color: #f0f0f0 !important;
+        border-top: 2px solid #000000 !important;
+    }
+    
+    .pie-mayor {
+        background-color: #ffffff !important;
+        border-top: 2px solid #000000 !important;
+    }
+    
+    .saldo-mayor {
+        border-color: #000000 !important;
+    }
+    
+    /* =============================================================================
+       ANÁLISIS DE LA OPERACIÓN
+       ============================================================================= */
+    
+    .paso-analisis {
+        border: 1px solid #000000 !important;
+        border-left: 4px solid #000000 !important;
+        background-color: #ffffff !important;
+        page-break-inside: avoid !important;
+    }
+    
+    .paso-ingreso,
+    .paso-costo,
+    .paso-inventario,
+    .paso-ganancia,
+    .paso-perdida {
+        border-left-color: #000000 !important;
+        background-color: #ffffff !important;
+    }
+    
+    .titulo-paso {
+        color: #000000 !important;
+    }
+    
+    .valor-resultado {
+        color: #000000 !important;
+    }
+    
+    /* =============================================================================
+       GRÁFICOS (CANVAS)
+       =============================================================================
+       Los canvas se imprimen como imágenes. Aseguramos que tengan
+       borde y sean visibles.
+       ============================================================================= */
+    
+    .contenedor-grafico {
+        border: 1px solid #000000 !important;
+        background-color: #ffffff !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .canvas-grafico {
+        border: 1px solid #cccccc !important;
+        max-width: 100% !important;
+    }
+    
+    /* =============================================================================
+       FORMULARIOS (ocultar en impresión)
+       =============================================================================
+       Los formularios no tienen sentido en una impresión.
+       ============================================================================= */
+    
+    #formulario-cuenta,
+    #formulario-asiento,
+    .grupo-formulario {
+        display: none !important;
+    }
+    
+    /* Ocultar el título del formulario */
+    #titulo-formulario {
+        display: none !important;
+    }
+    
+    /* =============================================================================
+       PIE DE PÁGINA
+       =============================================================================
+       Mantenemos el pie pero con estilo simplificado.
+       ============================================================================= */
+    
+    .pie-pagina {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        border-top: 1px solid #000000 !important;
+        margin-top: 30px !important;
+        padding: 10px !important;
+        font-size: 9pt !important;
+    }
+    
+    /* =============================================================================
+       UTILIDADES Y AJUSTES GENERALES
+       ============================================================================= */
+    
+    /* Forzar que los enlaces muestren su URL (útil para referencias) */
+    a[href]:after {
+        content: none !important; /* Desactivado, no es necesario para este sitio */
+    }
+    
+    /* Asegurar que el texto sea negro */
+    p, span, div, li, td, th {
+        color: #000000 !important;
+    }
+    
+    /* Números alineados a la derecha */
+    .celda-numero {
+        font-family: 'Courier New', monospace !important;
+        text-align: right !important;
+    }
+    
+    /* Indicadores de estado en blanco y negro */
+    .indicador-estado {
+        border: 1px solid #000000 !important;
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+    
+    /* Saltos de página inteligentes */
+    .tarjeta,
+    .esquema-mayor,
+    .contenedor-grafico,
+    .paso-analisis {
+        page-break-inside: avoid !important;
+    }
+    
+    /* Ajustar márgenes de página */
+    @page {
+        margin: 1.5cm 1cm;
+    }
+    
+    /* Ocultar mensajes de vacío que no aportan en impresión */
+    .mensaje-vacio {
+        display: none !important;
+    }
+    
+    /* Mostrar el contenido de las pestañas ocultas */
+    #seccion-diario,
+    #seccion-mayor {
+        display: block !important;
+    }
+    
+    /* Ajustar el grid de gráficos para impresión */
+    .grid-graficos {
+        display: block !important;
+    }
+    
+    .grid-graficos .contenedor-grafico {
+        width: 100% !important;
+        margin-bottom: 20px !important;
+    }
+}

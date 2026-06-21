@@ -1,0 +1,378 @@
+/**
+ * =============================================================================
+ * libros.css - Estilos específicos de la página Libro Diario y Mayor
+ * =============================================================================
+ * 
+ * Este archivo complementa a principal.css con estilos exclusivos para
+ * la página libros.html: pestañas de navegación, esquemas de mayor
+ * en formato T, y personalización del Libro Diario y resumen de saldos.
+ */
+
+/* =============================================================================
+   PESTAÑAS DE NAVEGACIÓN
+   ============================================================================= */
+
+/* Contenedor de las pestañas */
+.contenedor-pestanas {
+    display: flex;
+    gap: 0;
+    margin-bottom: 24px;
+    background-color: var(--fondo-tarjeta);
+    border-radius: var(--radio-borde-medio);
+    box-shadow: var(--sombra-suave);
+    overflow: hidden;
+}
+
+/* Botón de cada pestaña */
+.boton-pestana {
+    flex: 1;
+    padding: 14px 24px;
+    border: none;
+    background-color: transparent;
+    color: var(--texto-secundario);
+    font-family: var(--fuente-principal);
+    font-size: var(--tamano-texto);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Línea indicadora en la parte inferior de la pestaña */
+.boton-pestana::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: var(--color-principal);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+/* Hover en pestaña inactiva */
+.boton-pestana:hover {
+    color: var(--color-principal);
+    background-color: rgba(26, 82, 118, 0.05);
+}
+
+/* Pestaña activa */
+.boton-pestana.activa {
+    color: var(--color-principal);
+    font-weight: 600;
+}
+
+/* Línea indicadora visible en pestaña activa */
+.boton-pestana.activa::after {
+    width: 60%;
+}
+
+/* =============================================================================
+   LIBRO DIARIO - TABLA ESPECÍFICA
+   ============================================================================= */
+
+/* Celdas que pertenecen al encabezado del asiento (con rowspan) */
+.celda-asiento-diario {
+    background-color: rgba(26, 82, 118, 0.06);
+    font-weight: 500;
+    vertical-align: top;
+    border-left: 3px solid var(--color-principal);
+}
+
+/* Número de asiento: destacado */
+.celda-asiento-diario:first-child {
+    font-size: 16px;
+    color: var(--color-principal);
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Descripción del asiento */
+.celda-descripcion-diario {
+    font-size: var(--tamano-pequeno);
+    color: var(--texto-secundario);
+    max-width: 300px;
+    line-height: 1.5;
+}
+
+/* Fila de totales en el pie de la tabla */
+.fila-totales {
+    background-color: var(--color-principal) !important;
+    color: white;
+}
+
+.fila-totales td {
+    font-weight: 600;
+    padding: 14px var(--espaciado-medio);
+}
+
+.celda-total-label {
+    text-align: right;
+    font-size: var(--tamano-subtitulo);
+}
+
+/* =============================================================================
+   ESQUEMAS DE MAYOR - FORMATO T
+   ============================================================================= */
+
+/* Contenedor de todos los esquemas de mayor */
+#contenedor-mayores {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 24px;
+    margin-top: 16px;
+}
+
+/* Esquema individual de mayor (formato T) */
+.esquema-mayor {
+    background-color: var(--fondo-tarjeta);
+    border: 2px solid var(--color-borde);
+    border-radius: var(--radio-borde-medio);
+    overflow: hidden;
+    box-shadow: var(--sombra-suave);
+    transition: box-shadow 0.2s ease;
+}
+
+.esquema-mayor:hover {
+    box-shadow: var(--sombra-media);
+}
+
+/* =============================================================================
+   ENCABEZADO DEL ESQUEMA T
+   ============================================================================= */
+
+.encabezado-mayor {
+    background-color: var(--color-principal);
+    color: white;
+    padding: 14px 16px;
+    text-align: center;
+}
+
+.titulo-cuenta-mayor {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.naturaleza-cuenta-mayor {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 2px 10px;
+    border-radius: 12px;
+}
+
+/* =============================================================================
+   CUERPO DEL ESQUEMA T (DOS COLUMNAS)
+   ============================================================================= */
+
+.cuerpo-mayor {
+    display: flex;
+    min-height: 150px;
+}
+
+/* Columna individual (Debe o Haber) */
+.columna-mayor {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Línea divisoria entre Debe y Haber */
+.columna-debe {
+    border-right: 2px solid var(--color-borde);
+}
+
+/* Título de cada columna */
+.titulo-columna-mayor {
+    text-align: center;
+    padding: 10px;
+    font-weight: 600;
+    font-size: var(--tamano-pequeno);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+/* Color específico para el título del Debe */
+.columna-debe .titulo-columna-mayor {
+    color: var(--color-debe);
+    background-color: rgba(192, 57, 43, 0.05);
+}
+
+/* Color específico para el título del Haber */
+.columna-haber .titulo-columna-mayor {
+    color: var(--color-haber);
+    background-color: rgba(39, 174, 96, 0.05);
+}
+
+/* Contenedor de movimientos (crece para llenar el espacio) */
+.columna-mayor .movimiento-mayor,
+.columna-mayor .movimiento-vacio {
+    flex: 1;
+}
+
+/* Cada movimiento individual */
+.movimiento-mayor {
+    padding: 8px 14px;
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    font-size: var(--tamano-texto);
+    border-bottom: 1px solid #f0f0f0;
+    color: var(--texto-principal);
+}
+
+/* Estado vacío cuando no hay movimientos */
+.movimiento-vacio {
+    padding: 8px 14px;
+    text-align: center;
+    color: var(--texto-secundario);
+    font-style: italic;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Total de cada columna */
+.total-columna-mayor {
+    padding: 10px 14px;
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    border-top: 2px solid var(--color-borde);
+    color: var(--texto-principal);
+}
+
+/* =============================================================================
+   PIE DEL ESQUEMA T (SALDO)
+   ============================================================================= */
+
+.pie-mayor {
+    display: flex;
+    background-color: #f0f4f8;
+    border-top: 2px solid var(--color-principal);
+}
+
+/* Cada lado del pie (izquierda y derecha) */
+.saldo-mayor {
+    flex: 1;
+    padding: 12px 14px;
+    text-align: center;
+    font-size: var(--tamano-pequeno);
+}
+
+/* Línea divisoria en el pie */
+.saldo-mayor:first-child {
+    border-right: 1px solid var(--color-borde);
+}
+
+/* Etiqueta del saldo */
+.etiqueta-saldo {
+    color: var(--texto-secundario);
+    font-weight: 500;
+}
+
+/* Valor del saldo */
+.valor-saldo {
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--color-principal);
+}
+
+/* =============================================================================
+   RESUMEN DE SALDOS - TABLA ESPECÍFICA
+   ============================================================================= */
+
+/* Indicador visual del tipo de saldo */
+.indicador-saldo {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Saldo deudor: rojo suave */
+.saldo-deudor {
+    background-color: rgba(192, 57, 43, 0.1);
+    color: var(--color-debe);
+}
+
+/* Saldo acreedor: verde */
+.saldo-acreedor {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: var(--color-haber);
+}
+
+/* =============================================================================
+   RESPONSIVE - PANTALLAS PEQUEÑAS
+   ============================================================================= */
+
+@media screen and (max-width: 768px) {
+    
+    /* Pestañas: texto más pequeño */
+    .boton-pestana {
+        padding: 12px 8px;
+        font-size: var(--tamano-pequeno);
+    }
+    
+    /* Libro Diario: tabla compacta */
+    #tabla-diario {
+        font-size: var(--tamano-pequeno);
+    }
+    
+    #tabla-diario th,
+    #tabla-diario td {
+        padding: 8px;
+    }
+    
+    .celda-descripcion-diario {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    /* Esquemas de mayor: una sola columna */
+    #contenedor-mayores {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Esquema T: columnas apiladas verticalmente */
+    .cuerpo-mayor {
+        flex-direction: column;
+    }
+    
+    .columna-debe {
+        border-right: none;
+        border-bottom: 2px solid var(--color-borde);
+    }
+    
+    /* Pie del esquema T: apilado */
+    .pie-mayor {
+        flex-direction: column;
+    }
+    
+    .saldo-mayor:first-child {
+        border-right: none;
+        border-bottom: 1px solid var(--color-borde);
+    }
+    
+    /* Resumen de saldos: tabla compacta */
+    #tabla-resumen-saldos {
+        font-size: var(--tamano-pequeno);
+    }
+    
+    #tabla-resumen-saldos th,
+    #tabla-resumen-saldos td {
+        padding: 8px;
+    }
+}

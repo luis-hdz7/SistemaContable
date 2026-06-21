@@ -1,0 +1,266 @@
+/**
+ * =============================================================================
+ * cuentas.css - Estilos específicos de la página Catálogo de Cuentas
+ * =============================================================================
+ * 
+ * Este archivo complementa a principal.css con estilos exclusivos para
+ * la página cuentas.html: ajustes del formulario, estilos de validación
+ * en tiempo real, y personalización de la tabla de cuentas.
+ */
+
+/* =============================================================================
+   FORMULARIO DE CUENTAS
+   ============================================================================= */
+
+/* Texto de ayuda debajo de los campos */
+.texto-ayuda {
+    display: block;
+    margin-top: 4px;
+    font-size: var(--tamano-pequeno);
+    color: var(--texto-secundario);
+    font-style: italic;
+}
+
+/* Resaltado visual del campo cuando hay error de validación */
+.campo-texto.error,
+.campo-seleccion.error,
+.campo-textarea.error {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.15);
+}
+
+/* Resaltado visual del campo cuando es válido */
+.campo-texto.valido,
+.campo-seleccion.valido,
+.campo-textarea.valido {
+    border-color: var(--color-exito);
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.15);
+}
+
+/* Estilo especial para el grupo de radio buttons de naturaleza */
+.grupo-radio .opcion-radio {
+    padding: 8px 12px;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-borde-pequeno);
+    transition: all 0.2s ease;
+    flex: 1;
+}
+
+.grupo-radio .opcion-radio:hover {
+    background-color: #f8f9fa;
+    border-color: var(--color-principal);
+}
+
+/* Radio button seleccionado: resaltamos toda la opción */
+.opcion-radio input[type="radio"]:checked + span {
+    color: var(--color-principal);
+    font-weight: 600;
+}
+
+.opcion-radio input[type="radio"]:checked {
+    accent-color: var(--color-principal);
+}
+
+/* =============================================================================
+   TABLA DE CUENTAS - ESTILOS ESPECÍFICOS
+   ============================================================================= */
+
+/* Ancho de las columnas de la tabla de cuentas */
+#tabla-cuentas th:nth-child(1),
+#tabla-cuentas td:nth-child(1) {
+    width: 60px;
+    text-align: center;
+}
+
+#tabla-cuentas th:nth-child(3),
+#tabla-cuentas td:nth-child(3) {
+    width: 120px;
+}
+
+#tabla-cuentas th:nth-child(4),
+#tabla-cuentas td:nth-child(4) {
+    width: 100px;
+}
+
+#tabla-cuentas th:nth-child(6),
+#tabla-cuentas td:nth-child(6) {
+    width: 160px;
+    text-align: center;
+}
+
+/* Estilo visual para la naturaleza deudora */
+.naturaleza-deudora {
+    color: var(--color-debe);
+    font-weight: 600;
+    background-color: rgba(192, 57, 43, 0.08);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: var(--tamano-pequeno);
+    display: inline-block;
+}
+
+/* Estilo visual para la naturaleza acreedora */
+.naturaleza-acreedora {
+    color: var(--color-haber);
+    font-weight: 600;
+    background-color: rgba(39, 174, 96, 0.08);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: var(--tamano-pequeno);
+    display: inline-block;
+}
+
+/* Colores por tipo de cuenta en la tabla */
+#tabla-cuentas td:nth-child(3) {
+    font-weight: 500;
+}
+
+/* Activo: azul */
+#tabla-cuentas td:nth-child(3):contains("Activo") {
+    color: var(--color-principal);
+}
+
+/* Pasivo: naranja */
+#tabla-cuentas td:nth-child(3):contains("Pasivo") {
+    color: var(--color-acento);
+}
+
+/* Patrimonio: verde oscuro */
+#tabla-cuentas td:nth-child(3):contains("Patrimonio") {
+    color: #1e8449;
+}
+
+/* Ingreso: verde */
+#tabla-cuentas td:nth-child(3):contains("Ingreso") {
+    color: var(--color-haber);
+}
+
+/* Costo: rojo suave */
+#tabla-cuentas td:nth-child(3):contains("Costo") {
+    color: #c0392b;
+}
+
+/* Gasto: rojo */
+#tabla-cuentas td:nth-child(3):contains("Gasto") {
+    color: #e74c3c;
+}
+
+/* Contra-ingreso: rojo oscuro */
+#tabla-cuentas td:nth-child(3):contains("Contra-ingreso") {
+    color: #922b21;
+}
+
+/* Contra-costo: verde oscuro */
+#tabla-cuentas td:nth-child(3):contains("Contra-costo") {
+    color: #1e8449;
+}
+
+/* =============================================================================
+   BOTONES DE ACCIÓN EN LA TABLA
+   ============================================================================= */
+
+/* Botón editar: azul claro */
+.boton-editar {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: var(--radio-borde-pequeno);
+    cursor: pointer;
+    font-size: var(--tamano-pequeno);
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.boton-editar:hover {
+    background-color: #2980b9;
+}
+
+/* Botón eliminar: rojo */
+.boton-eliminar {
+    background-color: var(--color-error);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: var(--radio-borde-pequeno);
+    cursor: pointer;
+    font-size: var(--tamano-pequeno);
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.boton-eliminar:hover {
+    background-color: #c0392b;
+}
+
+/* =============================================================================
+   ESTADOS DEL FORMULARIO
+   ============================================================================= */
+
+/* Animación suave al cambiar de modo creación a edición */
+#titulo-formulario {
+    transition: color 0.3s ease;
+}
+
+/* Cuando estamos en modo edición, cambiamos el color del título */
+.modo-edicion #titulo-formulario {
+    color: var(--color-acento);
+}
+
+/* Resaltado visual de la fila que se está editando */
+.fila-editando {
+    background-color: rgba(230, 126, 34, 0.1) !important;
+    border-left: 3px solid var(--color-acento);
+}
+
+/* =============================================================================
+   RESPONSIVE - PANTALLAS PEQUEÑAS
+   ============================================================================= */
+
+@media screen and (max-width: 768px) {
+    
+    /* El formulario ocupa todo el ancho disponible */
+    .grupo-formulario {
+        margin-bottom: 20px;
+    }
+    
+    /* Los radio buttons se apilan verticalmente */
+    .grupo-radio {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .grupo-radio .opcion-radio {
+        width: 100%;
+    }
+    
+    /* La tabla de cuentas permite scroll horizontal */
+    #tabla-cuentas {
+        font-size: var(--tamano-pequeno);
+    }
+    
+    #tabla-cuentas th,
+    #tabla-cuentas td {
+        padding: 8px;
+    }
+    
+    /* Los botones de acción en la tabla son más compactos */
+    .celda-acciones {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .boton-editar,
+    .boton-eliminar {
+        width: 100%;
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+    
+    /* Ajustamos los badges de naturaleza */
+    .naturaleza-deudora,
+    .naturaleza-acreedora {
+        font-size: 11px;
+        padding: 1px 6px;
+    }
+}

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Cuentas - Sistema Contable Educativo</title>
+    
+    <!-- 
+        Estilos base compartidos por todas las páginas.
+        Contiene la navegación, variables CSS, botones, tablas y formularios.
+    -->
+    <link rel="stylesheet" href="../estilos/principal.css">
+    
+    <!-- 
+        Estilos específicos de la página de cuentas.
+        Se carga después de principal.css para poder sobrescribir si es necesario.
+    -->
+    <link rel="stylesheet" href="../estilos/cuentas.css">
+    
+    <!-- 
+        Estilos para impresión.
+        Oculta navegación, botones y fondos de color al imprimir.
+    -->
+    <link rel="stylesheet" href="../estilos/impresion.css" media="print">
+</head>
+<body>
+    
+    <!-- 
+        =============================================================================
+        NAVEGACIÓN PRINCIPAL
+        =============================================================================
+        Igual en todas las páginas. El enlace activo se resalta automáticamente
+        mediante la función marcarNavegacionActiva() en principal.js.
+    -->
+    <nav class="navegacion-principal">
+        <div class="contenedor-navegacion">
+            <a href="../index.html" class="titulo-navegacion">Contabilidad Educativa</a>
+            
+            <button id="boton-menu-hamburguesa" class="boton-menu-hamburguesa" aria-label="Abrir menú de navegación">
+                <span class="linea"></span>
+                <span class="linea"></span>
+                <span class="linea"></span>
+            </button>
+            
+            <ul id="lista-navegacion" class="lista-navegacion">
+                <li class="elemento-navegacion">
+                    <a href="../index.html" class="enlace-navegacion">Inicio</a>
+                </li>
+                <li class="elemento-navegacion">
+                    <a href="cuentas.html" class="enlace-navegacion">Catálogo de Cuentas</a>
+                </li>
+                <li class="elemento-navegacion">
+                    <a href="movimientos.html" class="enlace-navegacion">Registro de Movimientos</a>
+                </li>
+                <li class="elemento-navegacion">
+                    <a href="libros.html" class="enlace-navegacion">Libro Diario y Mayor</a>
+                </li>
+                <li class="elemento-navegacion">
+                    <a href="resultados.html" class="enlace-navegacion">Resultados</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- 
+        =============================================================================
+        CONTENIDO PRINCIPAL
+        =============================================================================
+    -->
+    <main class="contenido-principal">
+        <div class="contenedor">
+            
+            <!-- Encabezado de la página -->
+            <header class="encabezado-pagina">
+                <h1 class="titulo-principal">Catálogo de Cuentas</h1>
+                <p class="subtitulo-principal">Gestiona las cuentas contables del ejercicio</p>
+            </header>
+            
+            <!-- 
+                =============================================================================
+                SECCIÓN: FORMULARIO PARA CREAR/EDITAR CUENTAS
+                =============================================================================
+                Este formulario permite agregar nuevas cuentas al catálogo.
+                También se reutiliza para editar cuentas existentes.
+            -->
+            <section class="tarjeta margen-inferior">
+                <h2 class="titulo-tarjeta" id="titulo-formulario">Agregar Nueva Cuenta</h2>
+                
+                <form id="formulario-cuenta" novalidate>
+                    
+                    <!-- Campo oculto para saber si estamos editando (ID de la cuenta) -->
+                    <input type="hidden" id="campo-id-cuenta" value="">
+                    
+                    <!-- Nombre de la cuenta -->
+                    <div class="grupo-formulario">
+                        <label for="campo-nombre" class="etiqueta-formulario">Nombre de la cuenta *</label>
+                        <input 
+                            type="text" 
+                            id="campo-nombre" 
+                            class="campo-texto" 
+                            placeholder="Ejemplo: Caja, Bancos, Ventas..."
+                            required 
+                            minlength="3"
+                            maxlength="100"
+                        >
+                        <small class="texto-ayuda">Mínimo 3 caracteres. No se permiten nombres duplicados.</small>
+                    </div>
+                    
+                    <!-- Tipo de cuenta -->
+                    <div class="grupo-formulario">
+                        <label for="campo-tipo" class="etiqueta-formulario">Tipo de cuenta *</label>
+                        <select id="campo-tipo" class="campo-seleccion" required>
+                            <option value="">-- Seleccione un tipo --</option>
+                            <option value="Activo">Activo</option>
+                            <option value="Pasivo">Pasivo</option>
+                            <option value="Patrimonio">Patrimonio</option>
+                            <option value="Ingreso">Ingreso</option>
+                            <option value="Costo">Costo</option>
+                            <option value="Gasto">Gasto</option>
+                            <option value="Contra-ingreso">Contra-ingreso</option>
+                            <option value="Contra-costo">Contra-costo</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Naturaleza de la cuenta (radio buttons) -->
+                    <div class="grupo-formulario">
+                        <span class="etiqueta-formulario">Naturaleza de la cuenta *</span>
+                        <div class="grupo-radio">
+                            <label class="opcion-radio">
+                                <input type="radio" name="naturaleza" value="deudora" required>
+                                <span>Deudora (aumenta con el Debe)</span>
+                            </label>
+                            <label class="opcion-radio">
+                                <input type="radio" name="naturaleza" value="acreedora" required>
+                                <span>Acreedora (aumenta con el Haber)</span>
+                            </label>
+                        </div>
+                        <small class="texto-ayuda">
+                            Los Activos, Costos y Gastos son deudores. 
+                            Los Pasivos, Patrimonio e Ingresos son acreedores.
+                        </small>
+                    </div>
+                    
+                    <!-- Descripción opcional -->
+                    <div class="grupo-formulario">
+                        <label for="campo-descripcion" class="etiqueta-formulario">Descripción (opcional)</label>
+                        <textarea 
+                            id="campo-descripcion" 
+                            class="campo-textarea" 
+                            placeholder="Describe el propósito o uso de esta cuenta..."
+                            maxlength="200"
+                        ></textarea>
+                    </div>
+                    
+                    <!-- Mensaje de validación (se muestra con JavaScript) -->
+                    <div id="mensaje-formulario" class="mensaje-validacion oculto" role="alert"></div>
+                    
+                    <!-- Botones del formulario -->
+                    <div class="grupo-botones">
+                        <button type="submit" id="boton-guardar" class="boton boton-primario">
+                            Agregar Cuenta
+                        </button>
+                        <button type="button" id="boton-cancelar" class="boton boton-peligro oculto">
+                            Cancelar Edición
+                        </button>
+                    </div>
+                    
+                </form>
+            </section>
+            
+            <!-- 
+                =============================================================================
+                SECCIÓN: TABLA DE CUENTAS EXISTENTES
+                =============================================================================
+                Muestra todas las cuentas del catálogo con opciones de editar y eliminar.
+            -->
+            <section class="tarjeta">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+                    <h2 class="titulo-tarjeta" style="margin: 0; border: none; padding: 0;">Cuentas Registradas</h2>
+                    
+                    <!-- Grupo de botones de acción -->
+                    <div class="grupo-botones" style="margin: 0;">
+                        <button id="boton-restablecer" class="boton boton-peligro boton-pequeno">
+                            Restablecer Ejercicio
+                        </button>
+                        <button id="boton-imprimir" class="boton boton-imprimir boton-pequeno">
+                            Imprimir
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Contenedor con scroll horizontal para la tabla -->
+                <div class="contenedor-tabla">
+                    <table class="tabla-datos" id="tabla-cuentas">
+                        <thead>
+                            <tr>
+                                <th>Número</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Naturaleza</th>
+                                <th>Descripción</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpo-tabla-cuentas">
+                            <!-- Las filas se generan dinámicamente con JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Mensaje que aparece cuando no hay cuentas -->
+                <p id="mensaje-sin-cuentas" class="mensaje-vacio oculto">
+                    No hay cuentas registradas. Agrega una nueva cuenta usando el formulario de arriba.
+                </p>
+                
+            </section>
+            
+        </div>
+    </main>
+    
+    <!-- 
+        =============================================================================
+        PIE DE PÁGINA
+        =============================================================================
+    -->
+    <footer class="pie-pagina">
+        <p class="texto-pie">
+            Sistema Contable Educativo - Método Pormenorizado | 
+            Creado para fines didácticos | 
+            <span id="anio-actual">2024</span>
+        </p>
+    </footer>
+    
+    <!-- 
+        =============================================================================
+        SCRIPTS
+        =============================================================================
+        Orden de carga importante:
+        1. datos.js - Variables globales con los datos del ejercicio
+        2. principal.js - Funciones compartidas (formato, navegación, impresión)
+        3. cuentas.js - Lógica específica de esta página
+    -->
+    <script src="../scripts/datos.js"></script>
+    <script src="../scripts/principal.js"></script>
+    <script src="../scripts/cuentas.js"></script>
+    
+    <!-- Script para el año actual -->
+    <script>
+        document.getElementById('anio-actual').textContent = new Date().getFullYear();
+    </script>
+    
+</body>
+</html>

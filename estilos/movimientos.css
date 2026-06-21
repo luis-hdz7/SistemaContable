@@ -1,0 +1,321 @@
+/**
+ * =============================================================================
+ * movimientos.css - Estilos específicos de la página Registro de Movimientos
+ * =============================================================================
+ * 
+ * Este archivo complementa a principal.css con estilos exclusivos para
+ * la página movimientos.html: líneas dinámicas del asiento, indicador
+ * de totales en tiempo real, y personalización de la tabla de asientos.
+ */
+
+/* =============================================================================
+   LÍNEAS DEL ASIENTO (DINÁMICAS)
+   ============================================================================= */
+
+/* Contenedor principal de cada línea del asiento */
+.linea-asiento {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+    padding: 16px;
+    margin-bottom: 12px;
+    background-color: #f8f9fa;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-borde-medio);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+/* Efecto hover en la línea */
+.linea-asiento:hover {
+    border-color: var(--color-principal);
+    box-shadow: 0 2px 6px rgba(26, 82, 118, 0.1);
+}
+
+/* Número de orden de la línea (se muestra con pseudo-elemento) */
+.linea-asiento::before {
+    content: attr(data-indice);
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    background-color: var(--color-principal);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* Grupo de cada campo dentro de la línea */
+.grupo-linea {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Etiqueta compacta para los campos de línea */
+.grupo-linea .etiqueta-formulario {
+    font-size: 12px;
+    margin-bottom: 0;
+    color: var(--texto-secundario);
+}
+
+/* Select de cuenta: ancho completo */
+.campo-cuenta {
+    width: 100%;
+    min-width: 200px;
+}
+
+/* Radio buttons compactos para Debe/Haber */
+.grupo-radio-compacto {
+    flex-direction: row;
+    gap: 8px;
+}
+
+.grupo-radio-compacto .opcion-radio {
+    flex: 1;
+    padding: 6px 10px;
+    text-align: center;
+    font-size: var(--tamano-pequeno);
+}
+
+/* Resaltado visual cuando se selecciona Debe */
+.opcion-radio:has(input[value="debe"]:checked) {
+    background-color: rgba(192, 57, 43, 0.1);
+    border-color: var(--color-debe);
+}
+
+/* Resaltado visual cuando se selecciona Haber */
+.opcion-radio:has(input[value="haber"]:checked) {
+    background-color: rgba(39, 174, 96, 0.1);
+    border-color: var(--color-haber);
+}
+
+/* Campo de monto: alineación derecha para números */
+.campo-monto {
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+}
+
+/* Botón eliminar línea: alineado al final */
+.grupo-boton-eliminar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 2px;
+}
+
+/* =============================================================================
+   INDICADOR DE TOTALES EN TIEMPO REAL
+   ============================================================================= */
+
+/* Contenedor del indicador */
+.indicador-totales {
+    background-color: #f8f9fa;
+    border: 2px solid var(--color-borde);
+    border-radius: var(--radio-borde-medio);
+    padding: 16px 20px;
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+/* Cada fila del indicador */
+.fila-indicador {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Etiqueta de cada total */
+.etiqueta-total {
+    font-size: var(--tamano-pequeno);
+    color: var(--texto-secundario);
+    font-weight: 500;
+}
+
+/* Valor numérico de cada total */
+.valor-total {
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* La fila de diferencia ocupa toda la fila en el grid */
+.fila-indicador:last-child {
+    grid-column: 1 / -1;
+    border-top: 2px solid var(--color-borde);
+    padding-top: 12px;
+    margin-top: 4px;
+}
+
+/* La diferencia se muestra más grande */
+#diferencia {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* =============================================================================
+   TABLA DE ASIENTOS REGISTRADOS
+   ============================================================================= */
+
+/* Ancho de las columnas de la tabla de asientos */
+#tabla-asientos th:nth-child(1),
+#tabla-asientos td:nth-child(1) {
+    width: 60px;
+    text-align: center;
+    font-weight: 600;
+}
+
+#tabla-asientos th:nth-child(2),
+#tabla-asientos td:nth-child(2) {
+    width: 100px;
+    white-space: nowrap;
+}
+
+#tabla-asientos th:nth-child(4),
+#tabla-asientos td:nth-child(4),
+#tabla-asientos th:nth-child(5),
+#tabla-asientos td:nth-child(5) {
+    width: 120px;
+    text-align: right;
+}
+
+#tabla-asientos th:nth-child(7),
+#tabla-asientos td:nth-child(7) {
+    width: 100px;
+    text-align: center;
+}
+
+/* Celdas que pertenecen al encabezado del asiento (con rowspan) */
+.celda-asiento {
+    background-color: rgba(26, 82, 118, 0.05);
+    font-weight: 500;
+    vertical-align: top;
+}
+
+/* Número de asiento: más grande y destacado */
+.celda-asiento:first-child {
+    font-size: 16px;
+    color: var(--color-principal);
+    font-weight: 700;
+}
+
+/* Descripción del asiento: texto más pequeño */
+.celda-descripcion {
+    font-size: var(--tamano-pequeno);
+    color: var(--texto-secundario);
+    max-width: 250px;
+    line-height: 1.4;
+}
+
+/* Celdas de acciones del asiento */
+.celda-acciones {
+    vertical-align: middle;
+}
+
+/* =============================================================================
+   ESTADOS DEL BOTÓN REGISTRAR
+   ============================================================================= */
+
+/* Botón deshabilitado: gris y sin interacción */
+#boton-registrar:disabled {
+    background-color: #bdc3c7;
+    color: #7f8c8d;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Botón habilitado: animación sutil de pulso */
+#boton-registrar:not(:disabled) {
+    animation: pulso-boton 2s infinite;
+}
+
+@keyframes pulso-boton {
+    0% {
+        box-shadow: 0 0 0 0 rgba(26, 82, 118, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(26, 82, 118, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(26, 82, 118, 0);
+    }
+}
+
+/* =============================================================================
+   RESPONSIVE - PANTALLAS PEQUEÑAS
+   ============================================================================= */
+
+@media screen and (max-width: 768px) {
+    
+    /* Las líneas del asiento se apilan en una sola columna */
+    .linea-asiento {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 20px 16px 16px;
+    }
+    
+    /* El número de orden se reposiciona */
+    .linea-asiento::before {
+        top: 8px;
+        right: 12px;
+        left: auto;
+    }
+    
+    /* Los radio buttons se distribuyen en fila completa */
+    .grupo-radio-compacto {
+        justify-content: center;
+    }
+    
+    .grupo-radio-compacto .opcion-radio {
+        padding: 8px 16px;
+    }
+    
+    /* El botón eliminar ocupa todo el ancho */
+    .grupo-boton-eliminar {
+        width: 100%;
+    }
+    
+    .grupo-boton-eliminar .boton {
+        width: 100%;
+    }
+    
+    /* El indicador de totales se apila */
+    .indicador-totales {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .fila-indicador {
+        justify-content: space-between;
+    }
+    
+    .fila-indicador:last-child {
+        border-top: 1px solid var(--color-borde);
+        padding-top: 8px;
+        margin-top: 0;
+    }
+    
+    /* La tabla de asientos: fuente más pequeña */
+    #tabla-asientos {
+        font-size: var(--tamano-pequeno);
+    }
+    
+    #tabla-asientos th,
+    #tabla-asientos td {
+        padding: 8px;
+    }
+    
+    /* La descripción se trunca en móvil */
+    .celda-descripcion {
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
